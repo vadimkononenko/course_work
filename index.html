@@ -10,60 +10,79 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            background-color: #36a596;
+            background-color: #0d6efd;
         }
 
         li {
-            float: left;
             display: block;
             color: white;
             text-align: center;
             padding: 20px 25px;
             text-decoration: none;
-            font-size: 1.600em;
+            font-size: 1.800em;
+        }
+
+        .card {
+            margin-left: 4%;
+            margin-top: 4%;
+        }
+
+        .fig {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+        }
+
+        .bg {
+            background-color: #bad2ff;
+        }
+
+        body {
+            background-color: #76aaf2;
+        }
+
+        .profile {
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
     <ul>
-        <li >CourseWork</li>
-        <li style="float:right">Profile</li>
+        <li style="float:left">Player</li>
+        <li style="float:right"> <img src="user.png" class="profile"></li>
     </ul>
 
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <div class="col">
-            <div class="card">
-                <img src="pic.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <div class="card bg">
+                <img src="flap.jpg" class="fig">
+                <div class="card-body text-center">
+                    <button type="button" class="btn btn-outline-primary btn-lg">Flappy Bird</button>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card">
-                <img src="pic.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <div class="card bg" style="margin-right: 4%">
+                <img src="20488.jpg" class="fig">
+                <div class="card-body text-center">
+                    <button type="button" class="btn btn-outline-primary btn-lg">2048</button>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card">
-                <img src="pic.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+            <div class="card bg" style="margin-bottom: 4%">
+                <img src="snake.jpg" class="fig">
+                <div class="card-body text-center">
+                    <button type="button" class="btn btn-outline-primary btn-lg">Snake</button>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card">
-                <img src="pic.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <div class="card bg" style="margin-right: 4%; margin-bottom: 4%">
+                <img src="tanks.jpg" class="fig">
+                <div class="card-body text-center">
+                    <button type="button" class="btn btn-outline-primary btn-lg">Tanks</button>
                 </div>
             </div>
         </div>
