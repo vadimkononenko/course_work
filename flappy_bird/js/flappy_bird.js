@@ -1,11 +1,11 @@
-var cvs = document.getElementById("canvas");
-var ctx = cvs.getContext("2d");
+let cvs = document.getElementById("canvas");
+let ctx = cvs.getContext("2d");
 
-var bird = new Image();
-var bg = new Image();
-var fg = new Image();
-var pipeNorth = new Image();
-var pipeSouth = new Image();
+let bird = new Image();
+let bg = new Image();
+let fg = new Image();
+let pipeNorth = new Image();
+let pipeSouth = new Image();
 
 bird.src = "png/flappy_bird_bird.png";
 bg.src = "png/flappy_bird_bg.png";
@@ -13,18 +13,18 @@ fg.src = "png/flappy_bird_fg.png";
 pipeNorth.src = "png/flappy_bird_pipeUp.png";
 pipeSouth.src = "png/flappy_bird_pipeBottom.png";
 
-var gap = 120;
-var constant;
+let gap = 120;
+let constant;
 
-var bX = 20;
-var bY = 200;
+let bX = 20;
+let bY = 200;
 
-var gravity = 1.5;
+let gravity = 1.5;
 
-var score = 0;
+let score = 0;
 
-var fly = new Audio();
-var scor = new Audio();
+let fly = new Audio();
+let scor = new Audio();
 
 fly.src = "sounds/fly.mp3";
 scor.src = "sounds/score.mp3";
@@ -36,7 +36,7 @@ function moveUp(){
     fly.play();
 }
 
-var pipe = [];
+let pipe = [];
 
 pipe[0] = {
     x : cvs.width,
@@ -48,7 +48,7 @@ function draw(){
     ctx.drawImage(bg,0,0);
 
 
-    for(var i = 0; i < pipe.length; i++){
+    for(let i = 0; i < pipe.length; i++){
 
         constant = pipeNorth.height+gap;
         ctx.drawImage(pipeNorth,pipe[i].x,pipe[i].y);

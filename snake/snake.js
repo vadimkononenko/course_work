@@ -1,23 +1,23 @@
-var canvas;
-var ctx;
+let canvas;
+let ctx;
 
-var head;
-var apple;
-var ball;
+let head;
+let apple;
+let ball;
 
-var dots;
-var apple_x;
-var apple_y;
+let dots;
+let apple_x;
+let apple_y;
 
-var leftDirection = false;
-var rightDirection = true;
-var upDirection = false;
-var downDirection = false;
-var inGame = true;
+let leftDirection = false;
+let rightDirection = true;
+let upDirection = false;
+let downDirection = false;
+let inGame = true;
 
 const DOT_SIZE = 10;
 const ALL_DOTS = 900;
-const MAX_RAND = 130;
+const MAX_RAND = 50;
 const DELAY = 140;
 const C_HEIGHT = 700;
 const C_WIDTH = 1550;
@@ -27,8 +27,8 @@ const RIGHT_KEY = 39;
 const UP_KEY = 38;
 const DOWN_KEY = 40;
 
-var x = new Array(ALL_DOTS);
-var y = new Array(ALL_DOTS);
+let x = new Array(ALL_DOTS);
+let y = new Array(ALL_DOTS);
 
 function init() {
 
@@ -57,7 +57,7 @@ function createSnake() {
 
     dots = 3;
 
-    for (var z = 0; z < dots; z++) {
+    for (let z = 0; z < dots; z++) {
         x[z] = 50 - z * 10;
         y[z] = 50;
     }
@@ -65,7 +65,7 @@ function createSnake() {
 
 function checkApple() {
 
-    if ((x[0] == apple_x) && (y[0] == apple_y)) {
+    if ((x[0] === apple_x) && (y[0] === apple_y)) {
 
         dots++;
         locateApple();
@@ -80,9 +80,9 @@ function doDrawing() {
 
         ctx.drawImage(apple, apple_x, apple_y);
 
-        for (var z = 0; z < dots; z++) {
+        for (let z = 0; z < dots; z++) {
 
-            if (z == 0) {
+            if (z === 0) {
                 ctx.drawImage(head, x[z], y[z]);
             } else {
                 ctx.drawImage(ball, x[z], y[z]);
@@ -106,7 +106,7 @@ function gameOver() {
 
 function checkApple() {
 
-    if ((x[0] == apple_x) && (y[0] == apple_y)) {
+    if ((x[0] === apple_x) && (y[0] === apple_y)) {
 
         dots++;
         locateApple();
@@ -115,7 +115,7 @@ function checkApple() {
 
 function move() {
 
-    for (var z = dots; z > 0; z--) {
+    for (let z = dots; z > 0; z--) {
 
         x[z] = x[(z - 1)];
         y[z] = y[(z - 1)];
@@ -144,9 +144,9 @@ function move() {
 
 function checkCollision() {
 
-    for (var z = dots; z > 0; z--) {
+    for (let z = dots; z > 0; z--) {
 
-        if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+        if ((z > 4) && (x[0] === x[z]) && (y[0] === y[z])) {
             inGame = false;
         }
     }
@@ -174,7 +174,7 @@ function checkCollision() {
 
 function locateApple() {
 
-    var r = Math.floor(Math.random() * MAX_RAND);
+    let r = Math.floor(Math.random() * MAX_RAND);
     apple_x = r * DOT_SIZE;
 
     r = Math.floor(Math.random() * MAX_RAND);
@@ -195,30 +195,30 @@ function gameCycle() {
 
 onkeydown = function(e) {
 
-    var key = e.keyCode;
+    let key = e.keyCode;
 
-    if ((key == LEFT_KEY) && (!rightDirection)) {
+    if ((key === LEFT_KEY) && (!rightDirection)) {
 
         leftDirection = true;
         upDirection = false;
         downDirection = false;
     }
 
-    if ((key == RIGHT_KEY) && (!leftDirection)) {
+    if ((key === RIGHT_KEY) && (!leftDirection)) {
 
         rightDirection = true;
         upDirection = false;
         downDirection = false;
     }
 
-    if ((key == UP_KEY) && (!downDirection)) {
+    if ((key === UP_KEY) && (!downDirection)) {
 
         upDirection = true;
         rightDirection = false;
         leftDirection = false;
     }
 
-    if ((key == DOWN_KEY) && (!upDirection)) {
+    if ((key === DOWN_KEY) && (!upDirection)) {
 
         downDirection = true;
         rightDirection = false;
