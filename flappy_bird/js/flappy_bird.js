@@ -26,8 +26,8 @@ let score = 0;
 let fly = new Audio();
 let scor = new Audio();
 
-fly.src = "sounds/fly.mp3";
-scor.src = "sounds/score.mp3";
+fly.src = "music/fly.mp3";
+scor.src = "music/score.mp3";
 
 document.addEventListener("click",moveUp);
 
@@ -56,7 +56,7 @@ function draw(){
 
         pipe[i].x--;
 
-        if( pipe[i].x == 100 ){
+        if( pipe[i].x === 100 ){
             pipe.push({
                 x : cvs.width,
                 y : Math.floor(Math.random()*pipeNorth.height)-pipeNorth.height
@@ -67,7 +67,7 @@ function draw(){
             location.reload();
         }
 
-        if(pipe[i].x == 5){
+        if(pipe[i].x === 5){
             score++;
             scor.play();
         }

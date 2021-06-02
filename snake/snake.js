@@ -104,14 +104,6 @@ function gameOver() {
     ctx.fillText('Game over', C_WIDTH/2, C_HEIGHT/2);
 }
 
-function checkApple() {
-
-    if ((x[0] === apple_x) && (y[0] === apple_y)) {
-
-        dots++;
-        locateApple();
-    }
-}
 
 function move() {
 
