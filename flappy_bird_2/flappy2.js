@@ -47,7 +47,7 @@ ground = {
     width: 224,
     height: 112,
     x: 0,
-    y:cvs.height - 112,
+    y:cvs.height - 100,
     w:224,
     h:112,
     render: function() {
@@ -67,8 +67,20 @@ bird = {
     render: function() {
         ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
     },
+    fly: 5.8,
     flap: function() {
-        console.log('🐦 flies')
+        console.log('🐦')
+        this.velocity = - this.fly
+    },
+    gravity: .35,
+    velocity: 0,
+    position: function() {
+        if (gameState.current == gameState.getReady) {
+            this.y = 160
+        } else {
+            this.velocity += this.gravity
+            this.y += this.velocity
+        }
     }
 }
 bird2 = {
@@ -83,8 +95,20 @@ bird2 = {
     render: function() {
         ctx.drawImage(theme2, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
     },
+    fly: 5.8,
     flap: function() {
-        console.log('🐦 flies')
+        console.log('🐦🐦')
+        this.velocity = - this.fly
+    },
+    gravity: .35,
+    velocity: 0,
+    position: function() {
+        if (gameState.current == gameState.getReady) {
+            this.y = 160
+        } else {
+            this.velocity += this.gravity
+            this.y += this.velocity
+        }
     }
 }
 getReady = {
@@ -126,6 +150,7 @@ let draw = () => {
     bird.render()
     getReady.render()
     gameOver.render()
+    bird.position()
 }
 let loop = () => {
     draw()
@@ -138,22 +163,24 @@ cvs.addEventListener('click', (e) => {
         gameState.current = gameState.play
     }
     if (gameState.current == gameState.play) {
-        bird2.flap()
+        bird.flap()
     }
     if (gameState.current == gameState.gameOver) {
         gameState.current = gameState.getReady
     }
 })
 document.body.addEventListener('keydown', (e) => {
-    if (gameState.current == gameState.getReady) {
-        gameState.current = gameState.play
-    }
-    if (gameState.current == gameState.play) {
-        bird2.flap()
-        console.log(e.keyCode)
-    }
-    if (gameState.current == gameState.gameOver) {
-        gameState.current = gameState.getReady
+    if (e.keyCode == 32) {
+        if (gameState.current == gameState.getReady) {
+            gameState.current = gameState.play
+        }
+        if (gameState.current == gameState.play) {
+            bird.flap()
+            console.log(e.keyCode)
+        }
+        if (gameState.current == gameState.gameOver) {
+            gameState.current = gameState.getReady
+        }
     }
 })
 let sprite = function(x,y, width,height, color1,color2, num1,num2,num3,num4) {
