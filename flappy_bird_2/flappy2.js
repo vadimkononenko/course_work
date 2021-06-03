@@ -36,9 +36,49 @@ bg = {
     y: cvs.height - 228,
     w: 276,
     h: 228,
+    dx: .2,
     render: function() {
         ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
         ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x + this.width,this.y,this.w,this.h)
+        ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x + this.width*2,this.y,this.w,this.h)
+    },
+    position: function () {
+        if (gameState.current == gameState.getReady) {
+            this.x = 0
+        }
+        if (gameState.current == gameState.play) {
+            this.x = (this.x-this.dx) % (this.w)
+        }
+    }
+}
+pipes = {
+    top: {
+        imgX: 56,
+        imgY: 323,
+    },
+    bot: {
+        imgX: 84,
+        imgY:323,
+    },
+    width: 26,
+    height: 160,
+    x: 150,
+    y: 0,
+    w: 55,
+    h: 250,
+    gap: 85,
+    dx: 2,
+    render: function() {
+        ctx.drawImage(theme2, this.top.imgX,this.top.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
+        ctx.drawImage(theme2, this.bot.imgX,this.bot.imgY,this.width,this.height, this.x,(this.y+this.gap+this.h),this.w,this.h)
+    },
+    position: function() {
+        if (gameState.current == gameState.getReady) {
+            this.x = cvs.width
+        }
+        if (gameState.current == gameState.play) {
+            this.x = this.x - this.dx
+        }
     }
 }
 ground = {
@@ -47,12 +87,22 @@ ground = {
     width: 224,
     height: 112,
     x: 0,
-    y:cvs.height - 100,
+    y:cvs.height - 112,
     w:224,
     h:112,
+    dx: 2,
     render: function() {
         ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
         ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x + this.width,this.y,this.w,this.h)
+    },
+    position: function() {
+        if (gameState.current == gameState.getReady) {
+            this.x = 0
+        }
+        if (gameState.current == gameState.play) {
+            //modulus keeps x value infinitely cycling back to zero
+            this.x = (this.x-this.dx) % (this.w/2)
+        }
     }
 }
 bird = {
@@ -67,12 +117,12 @@ bird = {
     render: function() {
         ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
     },
-    fly: 5.8,
+    fly: 5.5,
     flap: function() {
-        console.log('🐦')
+       // console.log('🐦')
         this.velocity = - this.fly
     },
-    gravity: .35,
+    gravity: .32,
     velocity: 0,
     position: function() {
         if (gameState.current == gameState.getReady) {
@@ -80,6 +130,15 @@ bird = {
         } else {
             this.velocity += this.gravity
             this.y += this.velocity
+            if (this.y+this.h >= cvs.height-ground.h) {
+              //  console.log('collision')
+                this.y = cvs.height-ground.h - this.h
+              //  gameState.current = gameState.gameOver
+            }
+            if (this.y <= 0) {
+              //  console.log('oops!')
+                this.y = 2
+            }
         }
     }
 }
@@ -97,7 +156,7 @@ bird2 = {
     },
     fly: 5.8,
     flap: function() {
-        console.log('🐦🐦')
+      //  console.log('🐦🐦')
         this.velocity = - this.fly
     },
     gravity: .35,
@@ -108,6 +167,14 @@ bird2 = {
         } else {
             this.velocity += this.gravity
             this.y += this.velocity
+            if (this.y+this.h >= cvs.height-ground.h) {
+              //  console.log('collision')
+                this.y = cvs.height-ground.h - this.h
+            }
+            if (this.y <= 0) {
+             //   console.log('oops!')
+                this.y = 2
+            }
         }
     }
 }
@@ -130,11 +197,11 @@ gameOver = {
     imgX: 174,
     imgY: 228,
     width: 226,
-    height: 202,
+    height: 158,
     x: cvs.width/2 - 226/2,
     y: cvs.height/2 - 160,
     w: 226,
-    h:202,
+    h:160,
     render: function() {
         if (gameState.current == gameState.gameOver) {
             ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
@@ -143,22 +210,28 @@ gameOver = {
 }
 let draw = () => {
     ctx.fillStyle = '#00bbc4'
-    console.log(cvs.width, cvs.height)
+  //  console.log(cvs.width, cvs.height)
     ctx.fillRect(0,0, cvs.width,cvs.height)
     bg.render()
+    pipes.render()
     ground.render()
     bird.render()
     getReady.render()
     gameOver.render()
     bird.position()
+    bg.position()
+    pipes.position()
+    ground.position()
 }
 let loop = () => {
     draw()
-    requestAnimationFrame(loop)
+   // requestAnimationFrame(loop)
 }
 loop()
+setInterval(loop, 17)
 
-cvs.addEventListener('click', (e) => {
+
+cvs.addEventListener('click', () => {
     if (gameState.current == gameState.getReady) {
         gameState.current = gameState.play
     }
@@ -176,7 +249,6 @@ document.body.addEventListener('keydown', (e) => {
         }
         if (gameState.current == gameState.play) {
             bird.flap()
-            console.log(e.keyCode)
         }
         if (gameState.current == gameState.gameOver) {
             gameState.current = gameState.getReady
