@@ -1,34 +1,76 @@
 let cvs
 let ctx
+let pipeGap
 let bird
+let bird1
+let bird2
 let topPipe
 let botPipe
-let ground
 let score
+let theme1
+let theme2
 
-let sprite = function(x,y, width,height, color1,color2, num1,num2,num3,num4) {
+let sprite = function(x,y, width,height, color) {
     this.x = x
     this.y = y
     this.width = width
     this.height = height
-    let linear = ctx.createLinearGradient(num1,num2, num3,num4)
-    linear.addColorStop(0, color1)
-    linear.addColorStop(1, color2)
+    this.gravity = 1
+    this.acceleration = .3
     this.render = function() {
-        ctx.fillStyle = linear
+        ctx.fillStyle = color
         ctx.fillRect(this.x,this.y, this.width,this.height)
     }
+    this.newPosition = function () {
+        this.gravity += this.acceleration
+        this.y += this.gravity
+    }
 }
+
+let updateGame = () => {
+    ctx.clearRect(0,0, cvs.width,cvs.height)
+}
+let draw = () => {
+    ctx.fillStyle = '#00bbc4'
+    console.log(cvs.width, cvs.height)
+    ctx.fillRect(0,0, cvs.width,cvs.height)
+    bird.render()
+    bird2.render()
+}
+let loop = () => {
+    draw()
+    requestAnimationFrame(loop)
+}
+
 cvs = document.getElementById('game')
 ctx = cvs.getContext('2d')
-bird = new sprite(30,200, 50,50, 'yellow','orange', 30,0,70,0)
-topPipe = new sprite(200,0, 70,200, 'green','lightgreen', 0,100, 0,200)
-botPipe = new sprite(200,576, 70,-200, 'green','lightgreen', 0,0, 0,-80)
-ground = new sprite(0,576, 324,-70, '#d2ce89','brown', 0,0, 0,30)
-let draw = () => {
-    bird.render()
-    topPipe.render()
-    botPipe.render()
-    ground.render()
+theme1 = new Image()
+theme1.src = 'png3/theme.png'
+theme2 = new Image()
+theme2.src = 'png3/theme-2.png'
+bird = {
+    imgX: 276,
+    imgY: 112,
+    width: 34,
+    height: 26,
+    x: 0,
+    y: 0,
+    w: 34,
+    h: 26,
+    render: function() {
+        ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
+    }
 }
-draw()
+bird2 = {
+    imgX: 87,
+    imgY: 491,
+    width: 17,
+    height: 12,
+    x: 0,
+    y: 0,
+    w: 34,
+    h: 26,
+    render: function() {
+        ctx.drawImage(theme2, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
+    }
+}
