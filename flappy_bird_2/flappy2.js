@@ -1,14 +1,16 @@
 let cvs
 let ctx
-let pipeGap
+
+let theme1
+let theme2
+let bg
 let bird
 let bird1
 let bird2
+let pipeGap
 let topPipe
 let botPipe
 let score
-let theme1
-let theme2
 
 let sprite = function(x,y, width,height, color) {
     this.x = x
@@ -27,15 +29,14 @@ let sprite = function(x,y, width,height, color) {
     }
 }
 
-let updateGame = () => {
-    ctx.clearRect(0,0, cvs.width,cvs.height)
-}
 let draw = () => {
     ctx.fillStyle = '#00bbc4'
     console.log(cvs.width, cvs.height)
     ctx.fillRect(0,0, cvs.width,cvs.height)
+    bg.render()
+    ground.render()
     bird.render()
-    bird2.render()
+
 }
 let loop = () => {
     draw()
@@ -48,13 +49,41 @@ theme1 = new Image()
 theme1.src = 'png3/theme.png'
 theme2 = new Image()
 theme2.src = 'png3/theme-2.png'
+bg = {
+    imgX: 0,
+    imgY: 0,
+    width: 276,
+    height: 228,
+    x: 0,
+    y: cvs.height - 228,
+    w: 276,
+    h: 228,
+    render: function() {
+        ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
+        ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x + this.width,this.y,this.w,this.h)
+    }
+}
+ground = {
+    imgX: 276,
+    imgY: 0,
+    width: 224,
+    height: 112,
+    x: 0,
+    y:cvs.height - 112,
+    w:224,
+    h:112,
+    render: function() {
+        ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
+        ctx.drawImage(theme1, this.imgX,this.imgY,this.width,this.height, this.x + this.width,this.y,this.w,this.h)
+    }
+}
 bird = {
     imgX: 276,
     imgY: 112,
     width: 34,
     height: 26,
-    x: 0,
-    y: 0,
+    x: 50,
+    y: 160,
     w: 34,
     h: 26,
     render: function() {
@@ -74,3 +103,4 @@ bird2 = {
         ctx.drawImage(theme2, this.imgX,this.imgY,this.width,this.height, this.x,this.y,this.w,this.h)
     }
 }
+loop()
