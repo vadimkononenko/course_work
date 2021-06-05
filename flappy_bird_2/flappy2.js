@@ -5,8 +5,6 @@ let theme1      //  original theme
 let theme2      //  original them v2
 let bg          //  background
 let bird        //  bird: yellow
-let bird1       //  bird: red
-let bird2       //  bird: blue
 let pipes       //  top and bottom pipes
 let ground      //  ground floor
 let getReady    //  get ready screen
@@ -368,134 +366,7 @@ bird = {
         }
     }
 }
-bird1 = {
-    animation: [
-        {imgX: 115, imgY: 381},  //  position 0
-        {imgX: 115, imgY: 407},  //  position 1
-        {imgX: 115, imgY: 433},  //  position 2
-        {imgX: 115, imgY: 407}   //  position 1
-    ],
-    fr: 0,
-    width: 18,
-    height: 12,
-    x: 50,
-    y: 160,
-    w: 34,
-    h: 24,
-    r: 12,
-    fly: 5.25,
-    gravity: .32,
-    velocity: 0,
-    render: function() {
-        let bird = this.animation[this.fr]
-        ctx.drawImage(theme2, bird.imgX,bird.imgY,this.width,this.height, this.x-this.w/2,this.y-this.h/2,this.w,this.h)
-    },
-    flap: function() {
-        this.velocity = - this.fly
-    },
-    position: function() {
-        if (gameState.current == gameState.getReady) {
-            this.y = 160
-            if (frame%20 == 0) {
-                this.fr += 1
-            }
-            if (this.fr > this.animation.length - 1) {
-                this.fr = 0
-            }
 
-        } else {
-            if (frame%4 == 0) {
-                this.fr += 1
-            }
-            if (this.fr > this.animation.length - 1) {
-                this.fr = 0
-            }
-
-            this.velocity += this.gravity
-            this.y += this.velocity
-
-            if (this.y+this.h/2 >= cvs.height-ground.h) {
-                this.y = cvs.height-ground.h - this.h/2
-                if (frame%1 == 0) {
-                    this.fr = 2
-                }
-                if (gameState.current == gameState.play) {
-                    gameState.current = gameState.gameOver
-                    SFX_FALL.play()
-                }
-            }
-
-            if (this.y-this.h/2 <= 0) {
-                this.y = this.r
-            }
-        }
-    }
-}
-bird2 = {
-    animation: [
-        {imgX: 87, imgY: 491},   //  position 0
-        {imgX: 115, imgY: 329},  //  position 1
-        {imgX: 115, imgY: 355},  //  position 2
-        {imgX: 115, imgY: 329}   //  position 1
-    ],
-    fr: 0,
-    imgX: 87,
-    imgY: 491,
-    width: 18,
-    height: 12,
-    x: 50,
-    y: 160,
-    w: 34,
-    h: 24,
-    r: 12,
-    fly: 5.25,
-    gravity: .32,
-    velocity: 0,
-    render: function() {
-        let bird = this.animation[this.fr]
-        ctx.drawImage(theme2, bird.imgX,bird.imgY,this.width,this.height, this.x-this.w/2,this.y-this.h/2,this.w,this.h)
-    },
-    flap: function() {
-        this.velocity = - this.fly
-    },
-    position: function() {
-        if (gameState.current == gameState.getReady) {
-            this.y = 160
-            if (frame%20 == 0) {
-                this.fr += 1
-            }
-            if (this.fr > this.animation.length - 1) {
-                this.fr = 0
-            }
-
-        } else {
-            if (frame%4 == 0) {
-                this.fr += 1
-            }
-            if (this.fr > this.animation.length - 1) {
-                this.fr = 0
-            }
-
-            this.velocity += this.gravity
-            this.y += this.velocity
-
-            if (this.y+this.h/2 >= cvs.height-ground.h) {
-                this.y = cvs.height-ground.h - this.h/2
-                if (frame%1 == 0) {
-                    this.fr = 2
-                }
-                if (gameState.current == gameState.play) {
-                    gameState.current = gameState.gameOver
-                    SFX_FALL.play()
-                }
-            }
-
-            if (this.y-this.h/2 <= 0) {
-                this.y = this.r
-            }
-        }
-    }
-}
 getReady = {
     imgX: 0,
     imgY: 228,
