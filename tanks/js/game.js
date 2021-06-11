@@ -8,11 +8,6 @@ function randomInteger(min, max) {
 }
 
 function gameOver() {
-    const data = {
-        name: player.name,
-        points: points,
-        type: type
-    };
     points = 0;
     document.querySelector('.game-over').classList.add('on');
 }
@@ -550,8 +545,7 @@ let gameZone = document.querySelector('.game-zone'),
         checkEnemyBulletForPlayer: false,
         test: false
     },
-    type = '',
-    test = []
+    type = ''
 
 
 $('.levels__item').click(function () {
